@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">HorizontalScrollSelector</string>
+    <string name="title_section1">Regular View</string>
+    <string name="title_section2">Checkable View</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="center_indicator">|</string>
+    <string name="select_item_default">1</string>
+    <string name="select_item_button">Select item</string>
+    <string name="selected_item">Selected item: %d</string>
+
+</resources>
