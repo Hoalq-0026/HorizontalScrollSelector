@@ -3,6 +3,7 @@ package com.kevinpelgrims.horizontalscrollselector.library;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.os.Build;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.*;
 import android.widget.Checkable;
@@ -16,6 +17,7 @@ public class Selector extends HorizontalScrollView {
     private int selectedItemIndex = -1;
     private OnCheckedChangeListener onCheckedChangeListener;
     private OnItemClickListener onItemClickListener;
+    private Handler handler = new Handler();
 
     public void setOnCheckedChangeListener(OnCheckedChangeListener onCheckedChangeListener) {
         this.onCheckedChangeListener = onCheckedChangeListener;
@@ -152,20 +154,31 @@ public class Selector extends HorizontalScrollView {
     public boolean onTouchEvent(MotionEvent event) {
         super.onTouchEvent(event);
         if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
-            for (int i = 0; i < linearLayout.getChildCount(); i++) {
-                int width = linearLayout.getChildAt(i).getWidth();
-                int[] viewLocation = new int[2];
-                linearLayout.getChildAt(i).getLocationOnScreen(viewLocation);
-                int[] viewGroupLocation = new int[2];
-                getLocationOnScreen(viewGroupLocation);
-                int viewXInViewGroup = viewLocation[0] - viewGroupLocation[0];
-                int middle = getWidth() / 2;
-                if (middle >= viewXInViewGroup && middle <= viewXInViewGroup + width) {
-                    if (i == 0) i++;
-                    if (i == linearLayout.getChildCount() - 1) i--;
-                    setSelectedItem(i - 1, true);
-                    return true;
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    detectCenteredItem();
                 }
+            }, 240);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean detectCenteredItem() {
+        for (int i = 0; i < linearLayout.getChildCount(); i++) {
+            int width = linearLayout.getChildAt(i).getWidth();
+            int[] viewLocation = new int[2];
+            linearLayout.getChildAt(i).getLocationOnScreen(viewLocation);
+            int[] viewGroupLocation = new int[2];
+            getLocationOnScreen(viewGroupLocation);
+            int viewXInViewGroup = viewLocation[0] - viewGroupLocation[0];
+            int middle = getWidth() / 2;
+            if (middle >= viewXInViewGroup && middle <= viewXInViewGroup + width) {
+                if (i == 0) i++;
+                if (i == linearLayout.getChildCount() - 1) i--;
+                setSelectedItem(i - 1, true);
+                return true;
             }
         }
         return false;
