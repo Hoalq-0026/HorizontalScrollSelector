@@ -65,17 +65,8 @@ public class Selector extends HorizontalScrollView {
     private void addNewChildViews(List<View> items) {
         if (items == null || items.size() < 1) return;
         for (int i = 0; i < items.size(); i++) {
-            final int index = i;
             linearLayout.addView(items.get(i));
-            items.get(i).setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (onItemClickListener != null) {
-                        onItemClickListener.onItemClick(view, index);
-                    }
-                    if (index != selectedItemIndex) setSelectedItem(index);
-                }
-            });
+            items.get(i).setOnClickListener(generateOnClickListener(i));
         }
         addEmptyViewsToLinearLayout();
     }
@@ -90,6 +81,18 @@ public class Selector extends HorizontalScrollView {
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(getContext().getResources().getDisplayMetrics().widthPixels / 2, 1);
         view.setLayoutParams(layoutParams);
         return view;
+    }
+
+    private OnClickListener generateOnClickListener(final int index) {
+        return new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(view, index);
+                }
+                if (index != selectedItemIndex) setSelectedItem(index);
+            }
+        };
     }
 
     public int getSelectedItemIndex() {
