@@ -72,14 +72,15 @@ public class Selector extends HorizontalScrollView {
     }
 
     private void addEmptyViewsToLinearLayout() {
-        linearLayout.addView(createEmptyView(), 0);
-        linearLayout.addView(createEmptyView());
+        linearLayout.addView(createEmptyView(0), 0);
+        linearLayout.addView(createEmptyView(getCount()));
     }
 
-    private View createEmptyView() {
+    private View createEmptyView(int snapToIndex) {
         View view = new View(getContext());
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(getContext().getResources().getDisplayMetrics().widthPixels / 2, 1);
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(getContext().getResources().getDisplayMetrics().widthPixels / 2, ViewGroup.LayoutParams.MATCH_PARENT);
         view.setLayoutParams(layoutParams);
+        view.setOnClickListener(generateOnClickListener(snapToIndex));
         return view;
     }
 
