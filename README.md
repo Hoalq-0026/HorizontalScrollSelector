@@ -4,6 +4,13 @@ A HorizontalScrollView with the ability to select an item and center the item's 
 It takes in a `List<View>` and if the `View` implements `Checkable`, the `Selector` will take this into account.
 Selecting is possible by either tapping an item or by swiping and centering an item.
 
+##Disclaimer
+
+This is an old project, and the way it works it not nice.
+It works and you are free to use it, but it would be better to create something similar using an Adapter, or a RecyclerView with a custom LayoutManager based on the horizontal linear layout manager.
+
+In short: Use at your own risk :-)
+
 #Usage
 
 *For a working example, check the sample module*
