@@ -138,7 +138,7 @@ public class Selector extends HorizontalScrollView {
     private void smoothScrollTo(int x) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             ObjectAnimator animator = ObjectAnimator.ofInt(this, "scrollX", x);
-            animator.setDuration(300);
+            animator.setDuration(150);
             animator.start();
         }
         else {
